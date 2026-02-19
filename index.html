@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignatureCraft | Professional Email Signature Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            grid-column: 1 / -1;
+        }
+
+        header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 32px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            height: fit-content;
+        }
+
+        .card h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 24px;
+            border-bottom: 2px solid var(--bg);
+            padding-bottom: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .phone-row,
+        .social-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .phone-row select {
+            flex: 0 0 100px;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            margin-top: 8px;
+        }
+
+        .btn-secondary:hover {
+            background: #f1f5f9;
+        }
+
+        .btn-danger {
+            background: #fee2e2;
+            color: #ef4444;
+            padding: 8px 12px;
+        }
+
+        .btn-danger:hover {
+            background: #fecaca;
+        }
+
+        /* Template Selector */
+        .template-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .template-option {
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+            background: #f8fafc;
+        }
+
+        .template-option:hover {
+            border-color: var(--primary);
+            background: #f1f5f9;
+        }
+
+        .template-option.active {
+            border-color: var(--primary);
+            background: #eef2ff;
+        }
+
+        .template-option .icon-box {
+            height: 40px;
+            background: white;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+        }
+
+        .template-option span {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Color Pickers */
+        .color-pickers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .color-field {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px;
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        input[type="color"] {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            border: none;
+            background: none;
+            cursor: pointer;
+            flex: 0 0 32px;
+        }
+
+        /* Social Icon Selection */
+        .social-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .social-icon-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .social-icon-btn img {
+            width: 24px;
+            height: 24px;
+            filter: grayscale(1);
+            opacity: 0.6;
+        }
+
+        .social-icon-btn.active {
+            border-color: var(--primary);
+            background: #eef2ff;
+        }
+
+        .social-icon-btn.active img {
+            filter: none;
+            opacity: 1;
+        }
+
+        /* Preview Area */
+        .preview-container {
+            position: sticky;
+            top: 40px;
+        }
+
+        #signature-output {
+            background: white;
+            padding: 30px;
+            border: 1px dashed var(--border);
+            border-radius: 8px;
+            margin-bottom: 24px;
+            overflow-x: auto;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .copy-toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #10b981;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .copy-toast.show {
+            opacity: 1;
+        }
+
+        .upload-trigger {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #f8fafc;
+        }
+
+        .upload-trigger:hover {
+            border-color: var(--primary);
+            background: #f1f5f9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>SignatureCraft</h1>
+        <p>Design your professional email signature in seconds.</p>
+    </header>
+
+    <div class="container">
+        <!-- FORM SECTION -->
+        <div class="card">
+            <h2>Choose Template</h2>
+            <div class="template-selector">
+                <div class="template-option active" onclick="setTemplate('classic')" id="tpl-classic">
+                    <div class="icon-box">Classic</div>
+                    <span>Classic</span>
+                </div>
+                <div class="template-option" onclick="setTemplate('horizontal')" id="tpl-horizontal">
+                    <div class="icon-box">Horiz</div>
+                    <span>Horizontal</span>
+                </div>
+                <div class="template-option" onclick="setTemplate('stack')" id="tpl-stack">
+                    <div class="icon-box">Stack</div>
+                    <span>Stacked</span>
+                </div>
+            </div>
+
+            <h2>Personalize</h2>
+            <div class="color-pickers">
+                <div>
+                    <label>Accent Color</label>
+                    <div class="color-field">
+                        <input type="color" id="accentColor" value="#4f46e5" oninput="updatePreview()">
+                        <span id="accentHex" style="font-size: 0.8rem; font-family: monospace;">#4F46E5</span>
+                    </div>
+                </div>
+                <div>
+                    <label>Text Color</label>
+                    <div class="color-field">
+                        <input type="color" id="textColor" value="#1e293b" oninput="updatePreview()">
+                        <span id="textHex" style="font-size: 0.8rem; font-family: monospace;">#1E293B</span>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Your Details</h2>
+
+            <div class="form-group">
+                <label>Logo</label>
+                <div style="display: flex; gap: 12px; flex-direction: column;">
+                    <input type="text" id="logoUrl" placeholder="Paste image URL..." oninput="setLogo(this.value)">
+                    <div style="text-align: center; font-size: 0.8rem; color: var(--text-muted);">OR</div>
+                    <label class="upload-trigger">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                        </svg>
+                        <span style="font-size: 0.9rem; margin-top: 8px;">Upload Image</span>
+                        <input type="file" id="logoFile" accept="image/*" style="display: none;"
+                            onchange="handleFileUpload(this)">
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div>
+                    <label>Full Name</label>
+                    <input type="text" id="name" placeholder="John Doe" oninput="updatePreview()">
+                </div>
+                <div>
+                    <label>Role / Title</label>
+                    <input type="text" id="role" placeholder="Senior Architect" oninput="updatePreview()">
+                </div>
+            </div>
+
+            <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div>
+                    <label>Email</label>
+                    <input type="email" id="email" placeholder="john@example.com" oninput="updatePreview()">
+                </div>
+                <div>
+                    <label>Website</label>
+                    <input type="text" id="website" placeholder="www.example.com" oninput="updatePreview()">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Phone Numbers</label>
+                <div id="phone-list">
+                    <!-- Dynamic phone rows go here -->
+                </div>
+                <button class="btn btn-secondary" onclick="addPhone()">+ Add Phone</button>
+            </div>
+
+            <div class="form-group">
+                <label>Social Media Icons</label>
+                <div class="social-selector">
+                    <div class="social-icon-btn" onclick="toggleSocial('linkedin')" data-platform="linkedin">
+                        <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn">
+                    </div>
+                    <div class="social-icon-btn" onclick="toggleSocial('twitter')" data-platform="twitter">
+                        <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter">
+                    </div>
+                    <div class="social-icon-btn" onclick="toggleSocial('facebook')" data-platform="facebook">
+                        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook">
+                    </div>
+                    <div class="social-icon-btn" onclick="toggleSocial('instagram')" data-platform="instagram">
+                        <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram">
+                    </div>
+                    <div class="social-icon-btn" onclick="toggleSocial('github')" data-platform="github">
+                        <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub">
+                    </div>
+                </div>
+                <div id="social-links">
+                    <!-- Dynamic social link inputs go here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- PREVIEW SECTION -->
+        <div class="preview-container">
+            <div class="card">
+                <h2>Live Preview</h2>
+                <div id="signature-output">
+                    <!-- The table-based signature will be rendered here -->
+                </div>
+                <button class="btn" style="width: 100%; justify-content: center; font-size: 1.1rem; padding: 16px;"
+                    onclick="copySignature()">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3">
+                        </path>
+                    </svg>
+                    Copy to Clipboard
+                </button>
+                <p style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 16px;">
+                    Embedded images (Base64) are supported for local uploads.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="copy-toast">Signature Copied!</div>
+
+    <script>
+        let currentTemplate = 'classic';
+        let phoneData = [{ type: 'Mobile', value: '555-0123' }];
+        let socialData = {}; // { platform: 'link' }
+        let currentLogo = 'https://via.placeholder.com/150/4f46e5/ffffff?text=Logo';
+
+        const socialIcons = {
+            linkedin: 'https://cdn-icons-png.flaticon.com/512/174/174857.png',
+            twitter: 'https://cdn-icons-png.flaticon.com/512/733/733579.png',
+            facebook: 'https://cdn-icons-png.flaticon.com/512/733/733547.png',
+            instagram: 'https://cdn-icons-png.flaticon.com/512/174/174855.png',
+            github: 'https://cdn-icons-png.flaticon.com/512/25/25231.png'
+        };
+
+        function setTemplate(tpl) {
+            currentTemplate = tpl;
+            document.querySelectorAll('.template-option').forEach(opt => opt.classList.remove('active'));
+            document.getElementById(`tpl-${tpl}`).classList.add('active');
+            updatePreview();
+        }
+
+        function setLogo(url) {
+            if (url) {
+                currentLogo = url;
+                updatePreview();
+            }
+        }
+
+        function handleFileUpload(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    currentLogo = e.target.result;
+                    document.getElementById('logoUrl').value = '';
+                    updatePreview();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function addPhone() {
+            phoneData.push({ type: 'Work', value: '' });
+            renderPhones();
+            updatePreview();
+        }
+
+        function removePhone(index) {
+            phoneData.splice(index, 1);
+            renderPhones();
+            updatePreview();
+        }
+
+        function renderPhones() {
+            const list = document.getElementById('phone-list');
+            list.innerHTML = phoneData.map((p, i) => `
+                <div class="phone-row">
+                    <select onchange="phoneData[${i}].type = this.value; updatePreview()">
+                        <option ${p.type === 'Mobile' ? 'selected' : ''}>Mobile</option>
+                        <option ${p.type === 'Work' ? 'selected' : ''}>Work</option>
+                        <option ${p.type === 'Home' ? 'selected' : ''}>Home</option>
+                    </select>
+                    <input type="text" value="${p.value}" placeholder="Number" oninput="phoneData[${i}].value = this.value; updatePreview()">
+                    <button class="btn btn-danger" onclick="removePhone(${i})">×</button>
+                </div>
+            `).join('');
+        }
+
+        function toggleSocial(platform) {
+            if (socialData[platform] !== undefined) {
+                delete socialData[platform];
+                document.querySelector(`[data-platform="${platform}"]`).classList.remove('active');
+            } else {
+                socialData[platform] = '';
+                document.querySelector(`[data-platform="${platform}"]`).classList.add('active');
+            }
+            renderSocialInputs();
+            updatePreview();
+        }
+
+        function renderSocialInputs() {
+            const list = document.getElementById('social-links');
+            list.innerHTML = Object.keys(socialData).map(platform => `
+                <div class="form-group">
+                    <label style="text-transform: capitalize">${platform} Link</label>
+                    <input type="text" placeholder="https://${platform}.com/..." value="${socialData[platform]}" oninput="socialData['${platform}'] = this.value; updatePreview()">
+                </div>
+            `).join('');
+        }
+
+        function updatePreview() {
+            const name = document.getElementById('name').value || 'John Doe';
+            const role = document.getElementById('role').value || 'Your Profession';
+            const email = document.getElementById('email').value || 'hello@example.com';
+            const website = document.getElementById('website').value || 'www.example.com';
+            const accent = document.getElementById('accentColor').value;
+            const text = document.getElementById('textColor').value;
+
+            document.getElementById('accentHex').innerText = accent.toUpperCase();
+            document.getElementById('textHex').innerText = text.toUpperCase();
+
+            let phonesHtml = phoneData.filter(p => p.value).map(p => `
+                <tr>
+                    <td style="font-size: 13px; color: ${text}99; padding-bottom: 2px;">
+                        <span style="font-weight: 600; color: ${text};">${p.type}:</span> ${p.value}
+                    </td>
+                </tr>
+            `).join('');
+
+            let socialsHtml = Object.keys(socialData).map(p => `
+                <a href="${socialData[p]}" style="text-decoration: none; display: inline-block; margin-right: 10px;">
+                    <img src="${socialIcons[p]}" width="20" height="20" alt="${p}" style="border: 0;">
+                </a>
+            `).join('');
+
+            let signatureHtml = '';
+
+            if (currentTemplate === 'classic') {
+                signatureHtml = `
+                    <table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Inter', Helvetica, Arial, sans-serif; line-height: 1.4; color: ${text}; max-width: 500px;">
+                        <tr>
+                            <td style="vertical-align: top; padding-right: 20px; border-right: 2px solid ${accent};">
+                                <img src="${currentLogo}" alt="Logo" width="80" style="display: block; border-radius: 4px;">
+                            </td>
+                            <td style="padding-left: 20px; vertical-align: top;">
+                                <div style="font-weight: 600; font-size: 18px; margin-bottom: 2px; color: ${text};">${name}</div>
+                                <div style="font-size: 14px; color: ${text}cc; margin-bottom: 12px;">${role}</div>
+                                
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    ${phonesHtml}
+                                    <tr>
+                                        <td style="font-size: 13px; color: ${text}cc; padding-bottom: 2px;">
+                                            <span style="font-weight: 600; color: ${text};">Email:</span> ${email}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 13px; color: ${text}cc; padding-bottom: 12px;">
+                                            <span style="font-weight: 600; color: ${text};">Web:</span> ${website}
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div style="margin-top: 8px;">${socialsHtml}</div>
+                            </td>
+                        </tr>
+                    </table>
+                `;
+            } else if (currentTemplate === 'horizontal') {
+                signatureHtml = `
+                    <table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Inter', Helvetica, Arial, sans-serif; line-height: 1.4; color: ${text};">
+                        <tr>
+                            <td style="vertical-align: middle; padding-right: 15px;">
+                                <img src="${currentLogo}" alt="Logo" width="60" style="display: block; border-radius: 50%;">
+                            </td>
+                            <td style="vertical-align: middle;">
+                                <div style="font-weight: 600; font-size: 16px; color: ${text};">${name} <span style="font-weight: 400; color: ${accent}; mx-1">|</span> <span style="font-weight: 400; color: ${text}99; font-size: 14px;">${role}</span></div>
+                                <div style="font-size: 12px; color: ${text}cc; margin-top: 4px;">
+                                    ${email} &bull; ${website}
+                                </div>
+                                <div style="margin-top: 6px;">${socialsHtml}</div>
+                            </td>
+                        </tr>
+                    </table>
+                `;
+            } else if (currentTemplate === 'stack') {
+                signatureHtml = `
+                    <table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Inter', Helvetica, Arial, sans-serif; line-height: 1.4; color: ${text};">
+                        <tr>
+                            <td style="padding-bottom: 15px;">
+                                <img src="${currentLogo}" alt="Logo" width="50" style="display: block;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 4px; border-bottom: 1px solid ${accent};">
+                                <span style="font-weight: 600; font-size: 18px;">${name}</span><br>
+                                <span style="font-size: 14px; color: ${text}99;">${role}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 8px; font-size: 12px; color: ${text}cc;">
+                                <div>${email} | ${website}</div>
+                                <div style="margin-top: 4px;">${phoneData.filter(p => p.value).map(p => p.value).join(' / ')}</div>
+                                <div style="margin-top: 10px;">${socialsHtml}</div>
+                            </td>
+                        </tr>
+                    </table>
+                `;
+            }
+
+            document.getElementById('signature-output').innerHTML = signatureHtml;
+        }
+
+        async function copySignature() {
+            const container = document.getElementById('signature-output');
+            const html = container.innerHTML;
+            const text = container.innerText;
+
+            try {
+                const blob = new Blob([html], { type: "text/html" });
+                const blobText = new Blob([text], { type: "text/plain" });
+                const data = [new ClipboardItem({
+                    ["text/html"]: blob,
+                    ["text/plain"]: blobText
+                })];
+
+                await navigator.clipboard.write(data);
+                showToast();
+            } catch (err) {
+                console.error("Failed to copy: ", err);
+                // Fallback
+                const range = document.createRange();
+                range.selectNode(container);
+                window.getSelection().removeAllRanges();
+                window.getSelection().addRange(range);
+                document.execCommand('copy');
+                window.getSelection().removeAllRanges();
+                showToast();
+            }
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
+        // Initialize
+        renderPhones();
+        updatePreview();
+    </script>
+</body>
+
+</html>
